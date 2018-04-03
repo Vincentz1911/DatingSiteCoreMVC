@@ -1,0 +1,26 @@
+﻿Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+in appsettings.Development.json:
+{
+  "ConnectionStrings": {
+    "DatingDatabase": "Data Source=.;Initial Catalog=NyDB;Integrated Security=True"
+  },
+
+Create Model : DatabaseContext:
+    public class DatabaseContext : DbContext
+    {
+        public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options)
+        { }
+
+        public DbSet<Person> Persons { get; set; }
+
+        public DbSet<WebApplication6.Models.Order> Order { get; set; }
+        
+    }
+
+
+// InitialCreate is the name of the migration and should be replaced each time
+Add-Migration InitialCreate
+Update-Database
